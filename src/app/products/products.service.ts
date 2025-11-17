@@ -136,14 +136,15 @@ async findByMainCategory(mainCategoryName: string): Promise<Product[]> {
 
 
   // 🔒 Update Product (Admin Only)
-  async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
-    const updatedProduct = await this.productModel
-      .findByIdAndUpdate(id, updateProductDto, { new: true })
-      .populate({
-        path: 'category',
-        populate: { path: 'parentCategory' }
-      })
-      .exec();
+async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
+  const updatedProduct = await this.productModel
+    .findByIdAndUpdate(id, updateProductDto, { new: true })
+    .populate({
+      path: 'category',
+      populate: { path: 'parentCategory' }
+    })
+    .exec();
+
 
     if (!updatedProduct) {
       throw new NotFoundException('Product not found');
