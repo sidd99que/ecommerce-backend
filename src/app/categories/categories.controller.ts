@@ -1,4 +1,3 @@
-// src/modules/categories/categories.controller.ts
 import { 
   Body, 
   Controller, 
@@ -15,31 +14,36 @@ import { CreateCategoryDto } from '../../common/dto/create-category.dto';
 import { UpdateCategoryDto } from '../../common/dto/update-category.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { Roles } from '../../common/decorator/current-user.decorator';
+import { Roles } from '../../common/decorator/roles.decorator';
+import { Public } from '../../common/decorator/public.decorator'; // ← Import this
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   // 🟢 Public: Get all categories
+  @Public() // ← Add this decorator
   @Get()
   async getAllCategories(): Promise<Category[]> {
     return this.categoriesService.getAllCategories();
   }
 
   // 🟢 Public: Get main categories only (Men, Women, Kids)
+  @Public() // ← Add this decorator
   @Get('main')
   async getMainCategories(): Promise<Category[]> {
     return this.categoriesService.getMainCategories();
   }
 
   // 🟢 Public: Get subcategories by parent category name (e.g., "Men")
+  @Public() // ← Add this decorator
   @Get('main/:name/subcategories')
   async getSubcategoriesByMainCategory(@Param('name') name: string): Promise<Category[]> {
     return this.categoriesService.getSubcategoriesByMainCategory(name);
   }
 
   // 🟢 Public: Get category by ID
+  @Public() // ← Add this decorator
   @Get(':id')
   async getCategoryById(@Param('id') id: string): Promise<Category | null> {
     return this.categoriesService.getCategoryById(id);

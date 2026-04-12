@@ -14,6 +14,13 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/app/*"],
+      "@common/*": ["src/common/*"],
+      "@Order/*": ["src/app/Order/*"],
+      "@Payments/*": ["src/app/payments/*"],
+      "@models/*": ["src/models/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
