@@ -28,6 +28,7 @@ app.useGlobalInterceptors(
     origin: [
       'http://localhost:5173',
       'http://127.0.0.1:5173',
+       process.env.FRONTEND_URL, 
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -60,7 +61,7 @@ app.useGlobalInterceptors(
   app.enableShutdownHooks();
 
   const port = configService.get<number>('PORT') || 5000;
-  await app.listen(port, '127.0.0.1');
+  await app.listen(port, '0.0.0.0'); 
 
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }
