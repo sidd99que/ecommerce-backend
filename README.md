@@ -1,98 +1,202 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# FASCO — E-Commerce Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A production-ready REST API for the FASCO e-commerce platform built with NestJS + MongoDB.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![NestJS](https://img.shields.io/badge/NestJS-10-red?style=flat-square&logo=nestjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
+![MongoDB](https://img.shields.io/badge/MongoDB-7-green?style=flat-square&logo=mongodb)
+![Stripe](https://img.shields.io/badge/Stripe-Payment-purple?style=flat-square&logo=stripe)
 
-## Description
+## 📖 Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+FASCO is a full-stack e-commerce platform. This repository contains the backend API that powers user authentication, product management, order processing, and payment handling.
 
-## Project setup
+## 🏗 Architecture
 
-```bash
-$ yarn install
+```
+Client (React) → REST API (NestJS) → MongoDB Database
+                      ↓
+              External Services:
+              - Stripe (Payments)
+              - Google OAuth (Authentication)
+              - Nodemailer (Emails)
+              - Google Gemini (AI)
 ```
 
-## Compile and run the project
+## 🛠 Tech Stack & Why We Used It
+
+| Technology | Purpose | Why |
+|---|---|---|
+| **Node.js** | Runtime environment | Runs JavaScript on the server — fast and scalable |
+| **NestJS** | Backend framework | Built on Express, provides clean structure with modules, controllers & services |
+| **TypeScript** | Programming language | Adds type safety to JavaScript — catches bugs before runtime |
+| **MongoDB** | Database | NoSQL document database — flexible schema, perfect for e-commerce |
+| **Mongoose** | ODM for MongoDB | Makes working with MongoDB easier using schemas and models |
+| **JWT** | Authentication | Secure stateless token-based authentication |
+| **Passport.js** | Auth middleware | Handles multiple auth strategies (Local, JWT, Google OAuth) |
+| **bcrypt** | Password hashing | Securely hashes passwords before storing in database |
+| **Stripe** | Payment processing | Industry standard for handling card payments securely |
+| **Nodemailer** | Email service | Sends transactional emails (password reset, order confirmation) |
+| **Google Gemini** | AI integration | Generates product descriptions and keywords using AI |
+
+## ✨ Features
+
+- 🔐 JWT Authentication with access & refresh tokens
+- 🔵 Google OAuth 2.0 sign in
+- 🔑 Forgot/Reset password via email
+- 🛍️ Product & category management
+- 🛒 Cart system
+- 📦 Order management & tracking
+- 💳 Stripe payment processing + webhooks
+- ⭐ Reviews & ratings
+- 🔍 Advanced product search & filters
+- 👑 Admin panel APIs
+- 🤖 AI product content generation
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- MongoDB Atlas or local MongoDB
+- Stripe account
+- Google Cloud Console project
+- Gmail account
+
+### Installation
 
 ```bash
-# development
-$ yarn run start
+# Clone the repo
+git clone https://github.com/sidd99que/ecommerce-backend.git
+cd ecommerce-backend
 
-# watch mode
-$ yarn run start:dev
+# Install dependencies
+yarn install
 
-# production mode
-$ yarn run start:prod
+# Setup environment variables
+cp .env.example .env
+
+# Start development server
+yarn start:dev
+
+# Build for production
+yarn build
+yarn start:prod
 ```
 
-## Run tests
+## 🔑 Environment Variables
 
 ```bash
-# unit tests
-$ yarn run test
+PORT=                           # Server port (default: 5000)
+MONGO_URI=                      # MongoDB connection string
+NODE_ENV=                       # development | production
 
-# e2e tests
-$ yarn run test:e2e
+# JWT
+AUTH_JWT_ACCESS_SECRET=         # Secret for access tokens
+AUTH_JWT_REFRESH_SECRET=        # Secret for refresh tokens
+AUTH_JWT_EXPIRES_IN=15m         # Access token expiry
+AUTH_JWT_REFRESH_EXPIRES_IN=7d  # Refresh token expiry
 
-# test coverage
-$ yarn run test:cov
+# Stripe
+STRIPE_SECRET_KEY=              # Stripe secret key
+STRIPE_WEBHOOK_SECRET=          # Stripe webhook signing secret
+
+# Google OAuth
+GOOGLE_CLIENT_ID=               # Google OAuth client ID
+GOOGLE_CLIENT_SECRET=           # Google OAuth client secret
+GOOGLE_CALLBACK_URL=            # OAuth callback URL
+
+# App
+FRONTEND_URL=                   # Frontend URL for CORS & redirects
+
+# AI
+GEMINI_API_KEY=                 # Google Gemini API key
+
+# Email
+MAIL_USER=                      # Gmail address
+MAIL_PASS=                      # Gmail app password
+MAIL_FROM=                      # Display name + email
 ```
 
-## Deployment
+## 📁 Project Structure
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+```
+src/
+├── app/
+│   ├── auth/           # JWT, Google OAuth, password reset
+│   ├── CartModule/     # Cart management
+│   ├── Order/          # Order processing
+│   ├── payments/       # Stripe integration
+│   ├── products/       # Product CRUD & filtering
+│   ├── reviews/        # Reviews & ratings
+│   ├── search/         # Advanced search
+│   ├── mail/           # Email service
+│   └── admin/          # Admin-only endpoints
+├── common/
+│   ├── decorators/     # Custom decorators
+│   ├── guards/         # JWT & role guards
+│   ├── filters/        # Exception filters
+│   └── interceptors/   # Response interceptors
+├── config/             # App configuration
+├── models/             # Mongoose schemas
+└── database/           # Database connection
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📡 API Endpoints
 
-## Resources
+### Auth
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/auth/signup` | ❌ | Register new user |
+| POST | `/auth/login` | ❌ | Login |
+| POST | `/auth/refresh` | ❌ | Refresh access token |
+| POST | `/auth/logout` | ✅ | Logout |
+| GET | `/auth/google` | ❌ | Google OAuth |
+| POST | `/auth/forgot-password` | ❌ | Send reset email |
+| POST | `/auth/reset-password` | ❌ | Reset password |
 
-Check out a few resources that may come in handy when working with NestJS:
+### Products
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| GET | `/products` | ❌ | Get all products |
+| GET | `/products/:id` | ❌ | Get single product |
+| GET | `/products/featured` | ❌ | Featured products |
+| GET | `/products/new-arrivals` | ❌ | New arrivals |
+| GET | `/products/discount-deals` | ❌ | Discounted products |
+| POST | `/admin/products` | 👑 | Create product |
+| PATCH | `/admin/products/:id` | 👑 | Update product |
+| DELETE | `/admin/products/:id` | 👑 | Delete product |
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Orders
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/orders` | ✅ | Create order |
+| GET | `/orders/my-orders` | ✅ | My orders |
+| GET | `/admin/orders` | 👑 | All orders |
+| PATCH | `/admin/orders/:id/status` | 👑 | Update status |
+| DELETE | `/admin/orders/:id` | 👑 | Delete order |
 
-## Support
+### Payments
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/payments/checkout` | ✅ | Create Stripe session |
+| POST | `/payments/webhook` | ❌ | Stripe webhook |
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🔒 Security
 
-## Stay in touch
+- Passwords hashed with **bcrypt** (10 salt rounds)
+- Short-lived JWT access tokens (15 minutes)
+- Refresh tokens stored **hashed** in database
+- HTTP-only cookies for refresh tokens
+- Role-based access control (user / admin)
+- Input validation with **class-validator**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🔗 Frontend
 
-## License
+👉 https://github.com/sidd99que/ecommerce-frontend
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 👨‍💻 Author
+
+**Siddique** — [GitHub](https://github.com/sidd99que)
+
+---
+⭐ If you found this project helpful, please give it a star!****
