@@ -10,7 +10,7 @@ import {
 import { AdminService } from './admin.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { Roles } from '../../common/decorator/current-user.decorator';
+import { Roles } from '../../common/decorator/roles.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 
 @Controller('admin')

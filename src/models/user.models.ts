@@ -1,28 +1,44 @@
-// models/user.model.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class User {
-  _id: Types.ObjectId;  // 👈 explicitly define the type of MongoDB ID
+  _id!: Types.ObjectId;
 
-  @Prop({ required: true})
-  username: string;
+  @Prop({
+    required: true,
+    unique: true,
+  })
+  username!: string;
 
   @Prop({ required: true, unique: true })
-  email: string;
+  email!: string;
 
-  @Prop({ required: true })
-  password: string;
+  @Prop({
+    required: function (this: any) {
+      return !this.googleId;
+    },
+  })
+  password?: string;
 
-  @Prop({ default: 'user' }) // roles: 'user', 'admin'
-  role: string;
+  @Prop({ default: 'user' })
+  role!: string;
 
-   @Prop()
-  hashedRefreshToken?: string; // ✅ add the missing field
+  @Prop()
+  hashedRefreshToken?: string;
+
+  @Prop({ unique: true, sparse: true })
+  googleId?: string;
+
+  @Prop()
+  picture?: string;
+
+  @Prop({ default: null })          // 👈 Add this
+  passwordResetToken?: string;
+
+  @Prop({ default: null })          // 👈 Add this
+  passwordResetExpires?: Date;
 }
 
-// 👇 Now UserDocument has _id: Types.ObjectId instead of unknown
 export type UserDocument = User & Document;
-
 export const UserSchema = SchemaFactory.createForClass(User);
