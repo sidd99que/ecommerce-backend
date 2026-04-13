@@ -64,15 +64,14 @@ import { SearchModule } from '@/search/search.module';
       }),
     }),
 
-    JwtModule.registerAsync({
+ JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         secret: config.get<string>('AUTH_JWT_ACCESS_SECRET'),
-        signOptions: {
-          expiresIn: config.get<string>('AUTH_JWT_EXPIRES_IN') || '15m',
-        },
+        signOptions: { expiresIn: config.get<string>('AUTH_JWT_EXPIRES_IN') as any },
       }),
     }),
+
 
     AuthModule,
     AdminModule,
