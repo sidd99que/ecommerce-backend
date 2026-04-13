@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "module": "nodenext",
+        "types": ["node"],
+
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
@@ -11,8 +13,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
-    "sourceMap": true,
-    "outDir": "./dist",
+      "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/app/*"],
